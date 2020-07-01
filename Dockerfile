@@ -14,12 +14,12 @@ COPY mail.py /
 
 CMD java -jar /usr/lib/jenkins/jenkins.war
 
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectlS
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 
 RUN chmod +x ./kubectl
 RUN mkdir /root/.kube /root/jenkins
-RUN sudo mv ./kubectl /usr/local/bin/kubectl
-COPY ca.crt client.crt client.key config mydeploy.yml /root/
+RUN  mv ./kubectl /usr/local/bin/kubectl
+RUN cp /root/ca.crt  /root/
 RUN mv /root/config /root/.kube/config
  
 RUN yum install httpd -y
